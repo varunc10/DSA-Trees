@@ -28,7 +28,7 @@ class Solution
        Node *curr2=lca(root->right,n1,n2);
        if(curr1!=NULL&&curr2!=NULL){
            return root;
-       }
+       } 
        if(curr1!=NULL){
            return curr1;
        }
