@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    //int k=0;
+    void finalhelper(TreeNode* root,int& ans){
+        if(!root){
+            return;
+        }
+        finalhelper(root->right,ans);
+        ans+=root->val;
+        root->val=ans;
+        finalhelper(root->left,ans);
+    }
+    // void finalhelper(TreeNode* root,vector<int>& sum){
+    //     if(!root){
+    //         return;
+    //     }
+    //     finalhelper(root->left,sum);
+    //     root->val=sum[k++];
+    //     finalhelper(root->right,sum);
+    // }
+    // void helper(TreeNode* root,vector<int>& v){
+    //     if(!root){
+    //         return;
+    //     }
+    //     helper(root->left,v);
+    //     v.push_back(root->val);
+    //     helper(root->right,v);
+    // }
+    TreeNode* convertBST(TreeNode* root) {
+        if(!root){
+            return NULL;
+        }
+        // vector<int> v;
+        // helper(root,v);
+        // vector<int> sum(v.size(),0);
+        // int sum1=0;
+        // for(int i=0;i<v.size();i++){
+        //     sum1+=v[i];
+        // }
+        // for(int i=0;i<v.size();i++){
+        //     int sum2=sum1;
+        //     for(int j=i-1;j>=0;j--){
+        //         sum2=sum2-v[j];
+        //     }
+        //     sum[i]=sum2;
+        // }
+        int ans=0;
+        finalhelper(root,ans);
+        return root;
+    }
+};
