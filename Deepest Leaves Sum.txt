@@ -70,7 +70,7 @@ public:
             if(curr->right!=NULL){
                 q1.push(curr->right);
                 sum+=curr->right->val;
-            }
+            } 
         }
         return sum;
     }
