@@ -1,0 +1,28 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    TreeNode* ans=NULL;
+    void search(TreeNode* a,TreeNode* b,TreeNode* c){
+        if(a==NULL){
+            return;
+        }
+        search(a->left,b->left,c);
+        if(a==c){
+            ans=b;
+        }
+        search(a->right,b->right,c);
+    }
+    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+        search(original,cloned,target);
+        return ans;
+    }
+};
