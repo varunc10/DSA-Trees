@@ -1,0 +1,81 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int helper(TreeNode* A,int level,int B){
+    if(A==NULL){
+        return 0;
+    }
+    if(A->val==B){
+        return level;
+    }
+    int l=helper(A->left,level+1,B);
+    if(l!=0){
+        return l;
+    }
+    l=helper(A->right,level+1,B);
+    return l;
+}
+vector<int> Solution::solve(TreeNode* A, int B) {
+    int ans=helper(A,1,B);
+    queue<TreeNode*> q1;
+    queue<TreeNode*> q2;
+    vector<pair<int,int>> v;
+    vector<int> temp;
+    q1.push(A);
+    int level=0;
+    while(!q1.empty()||!q2.empty()){
+        level++;
+        while(!q1.empty()){
+            TreeNode* curr=q1.front();
+            q1.pop();
+            if(curr->left!=NULL){
+                q2.push(curr->left);
+            }
+            if(curr->right!=NULL){
+                q2.push(curr->right);
+            }
+            if(level==ans-1&&curr->left!=NULL){
+                v.push_back({curr->val,curr->left->val});
+            }
+            if(level==ans-1&&curr->right!=NULL){
+                v.push_back({curr->val,curr->right->val});
+            }
+        }
+        level++;
+        while(!q2.empty()){
+            TreeNode* curr=q2.front();
+            q2.pop();
+            if(curr->left!=NULL){
+                q1.push(curr->left);
+            }
+            if(curr->right!=NULL){
+                q1.push(curr->right);
+            }
+            if(level==ans-1&&curr->left!=NULL){
+                v.push_back({curr->val,curr->left->val});
+            }
+            if(level==ans-1&&curr->right!=NULL){
+                v.push_back({curr->val,curr->right->val});
+            }
+        }
+    } 
+    int par=-1;
+    for(auto i:v){
+        if(i.second==B){
+            par=i.first;
+            break;
+        }
+    }
+    for(auto i:v){
+        if(i.first!=par){
+            temp.push_back(i.second);
+        }
+    }
+    return temp;
+}
